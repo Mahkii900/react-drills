@@ -1,18 +1,34 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
+import ToDo from './components/Todo'
 
 class App extends Component {
+  constructor() {
+    super()
+    this.state ={
+      taskArr: [],
+      newTask: ''
+    }
+  }
+
+  updateTasks() {
+    this.setState({taskArr: [...this.state.taskArr, this.state.newTask]})
+    this.setState({newTask: ''})
+  }
+
+  changeHandler(value) {
+    this.setState({newTask: value})
+  }
+
   render() {
+    
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+        <input onChange={(e) => this.changeHandler(e.target.value)}/>
+        <button onClick={() => this.updateTasks()}>Add</button>
+        <div>
+          <ToDo taskArr={this.state.taskArr}/>
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
       </div>
     );
   }
